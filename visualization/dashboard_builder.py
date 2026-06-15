@@ -45,17 +45,21 @@ def build_dashboard(df: pd.DataFrame):
             y=y_col,
             title=f"{y_col} by {x_col}",
             color=y_col,
+            color_continuous_scale= "Viridis"
         )
 
         # PIE
+        if len(df) <= 50:
 
-        dashboard["pie"] = px.pie(
-            df,
-            names=x_col,
-            values=y_col,
-            title=f"{y_col} Share",
-            hole=0.4,
-        )
+            dashboard["pie"] = px.pie(
+                df,
+                names=x_col,
+                values=y_col,
+                title=f"{y_col} Share",
+                hole=0.5
+            )
+    
+        
 
         # LINE
 
@@ -75,7 +79,63 @@ def build_dashboard(df: pd.DataFrame):
             y=y_col,
             title=f"{y_col} Relationship",
             color=y_col,
+            color_continuous_scale="Turbo",
+            size=y_col
         )
+
+        # AREA CHART
+        dashboard["area"] = px.area(
+            df,
+            x=x_col,
+            y=y_col,
+            title=f"{y_col} Trend"
+
+        )
+
+        #  horizontal bar
+        dashboard["hbar"] = px.bar(
+            df,
+            x=y_col,
+            y=x_col,
+            orientation="h",
+            title=f"{y_col} by {x_col}",
+            color=y_col,
+            color_continuous_scale="Plasma"
+        )
+
+        # Box plot
+        dashboard["box"] = px.box(
+            df,
+            y=y_col,
+            title=f"{y_col} distribution"
+        )
+
+    
+        # TREEMAP
+        if len(df) <= 50:
+
+            dashboard["treemap"] = px.treemap(
+                df,
+                path=[x_col],
+                values=y_col,
+                color=y_col,
+                color_continuous_scale="Blues",
+                title=f"{y_col} by {x_col}"
+                    
+            )
+
+
+        # SUNBURST
+    
+        if len(df) <= 50:
+
+            dashboard["sunburst"] = px.sunburst(
+                df,
+                path=[x_col],
+                values=y_col,
+                title=f"{y_col} Breakdown",
+            )
+
 
     # ------------------
     # HISTOGRAM
@@ -87,6 +147,7 @@ def build_dashboard(df: pd.DataFrame):
             df,
             x=numeric_cols[0],
             title=f"{numeric_cols[0]} Distribution",
+            color_discrete_sequence=["#636EFA"]
         )
 
     return dashboard

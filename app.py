@@ -151,6 +151,17 @@ if st.button("Submit", type="primary"):
                 dashboards["scatter"],
                 width="stretch"
             )
+        if "area" in dashboards:
+            st.plotly_chart(
+                dashboards["area"],
+                width="stretch"
+            )
+
+        if "hbar" in dashboards:
+            st.plotly_chart(
+                dashboards["hbar"],
+                width="stretch",
+            )
 
     with chart_col2:
 
@@ -165,6 +176,25 @@ if st.button("Submit", type="primary"):
 
             st.plotly_chart(
                 dashboards["histogram"],
+                width="stretch"
+            )
+
+
+        if "box" in dashboards:
+            st.plotly_chart(
+                dashboards["box"],
+                width="stretch"
+            )
+
+        if "treemap" in dashboards:
+            st.plotly_chart(
+                dashboards["treemap"],
+                width="stretch"
+            )
+
+        if "sunburst" in dashboards:
+            st.plotly_chart(
+                dashboards["sunburst"],
                 width="stretch"
             )
 
